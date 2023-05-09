@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Цветной Круг</title>
+
+  <style>
+
+    body {
+
+      margin: 0;
+
+      overflow: hidden;
+
+      background-color: white;
+
+    }
+
+    #circle {
+
+      position: absolute;
+
+      width: 100px;
+
+      height: 100px;
+
+      border-radius: 50%;
+
+      background-color: blue;
+
+      touch-action: none;
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div id="circle"></div>
+
+  <script>
+
+    const circle = document.getElementById('circle');
+
+    const body = document.body;
+
+    const colors = ['blue', 'red', 'yellow', 'green', 'orange', 'purple'];
+
+    let move = false;
+
+    function changeBgColor() {
+
+      let colorIndex = Math.floor(Math.random() * colors.length);
+
+      body.style.backgroundColor = colors[colorIndex];
+
+    }
+
+    circle.ontouchstart = (e) => {
+
+      move = true;
+
+      circle.ontouchmove(e);
+
+    };
+
+    circle.ontouchend = () => {
+
+      move = false;
+
+      body.style.backgroundColor = 'white';
+
+    };
+
+    circle.ontouchmove = (e) => {
+
+      if (!move) return;
+
+      const touch = e.touches[0];
+
+      circle.style.left = `${touch.clientX - circle.offsetWidth / 2}px`;
+
+      circle.style.top = `${touch.clientY - circle.offsetHeight / 2}px`;
+
+      changeBgColor();
+
+    };
+
+  </script>
+
+</body>
+
+</html>
